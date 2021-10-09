@@ -1,4 +1,9 @@
+import { useState } from "react";
+
 const Formulario = () => {
+  //save the token for the search
+  const [termino, setTermino] = useState("");
+
   return (
     <form>
       <div className="row">
@@ -7,6 +12,7 @@ const Formulario = () => {
             type="text"
             className="form-control form-control-lg"
             placeholder="Busca una imagen, ejemplo: Futbol o café"
+            onChange={(e) => setTermino(e.target.value)}
           />
         </div>
         <div className="form-group col-md-4">
