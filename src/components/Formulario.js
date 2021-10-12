@@ -1,11 +1,27 @@
 import { useState } from "react";
+import Error from "./Error";
 
-const Formulario = () => {
+const Formulario = ({ setBusqueda }) => {
   //save the token for the search
   const [termino, setTermino] = useState("");
+  const [error, setError] = useState(false);
+
+  //search the term in termino
+  const buscarImagenes = (e) => {
+    e.preventDefault();
+
+    //validate
+    if (termino.trim() === "") {
+      setError(true);
+      return;
+    }
+    setError(false);
+    //send the search term to the main component
+    setBusqueda(termino);
+  };
 
   return (
-    <form>
+    <form onSubmit={buscarImagenes}>
       <div className="row">
         <div className="form-group col-md-8">
           <input
@@ -23,6 +39,8 @@ const Formulario = () => {
           />
         </div>
       </div>
+
+      {error ? <Error mensaje="Agrega un Término de Búsqueda" /> : null}
     </form>
   );
 };
