@@ -6,6 +6,8 @@ function App() {
   //State de la app
   const [busqueda, setBusqueda] = useState("");
   const [imagenes, setImagenes] = useState([]);
+  const [paginaActual, setPaginaActual] = useState(1);
+  const [totalPaginas, setTotalPaginas] = useState(1);
 
   useEffect(() => {
     if (busqueda) {
@@ -16,17 +18,10 @@ function App() {
 
         const respuesta = await fetch(url);
         const resultado = await respuesta.json();
+        const totalPaginas = Math.ceil(resultado.totalHits / imagenesPorPagina);
+
+        setTotalPaginas(totalPaginas);
         setImagenes(resultado.hits);
-
-        // setResultado(resultado);
-        // setConsultar(false);
-
-        //Detecta si hubo resultados correctos con la consulta
-        // if (resultado.cod === "404") {
-        //   setError(true);
-        // } else {
-        //   setError(false);
-        // }
       };
       consultarAPI();
     }
